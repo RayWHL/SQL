@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="309.0" prefWidth="562.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AdminController">
+   <children>
+      <ImageView fitHeight="309.0" fitWidth="562.0">
+         <image>
+            <Image url="@../../img/login_bg.jpg" />
+         </image>
+      </ImageView>
+      <TabPane layoutY="1.0" prefHeight="309.0" prefWidth="562.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="员工信息审核">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="AuditModifyTable" editable="true" layoutX="22.0" layoutY="28.0" prefHeight="243.0" prefWidth="503.0">
+                          <columns>
+                            <TableColumn fx:id="UIDcolumn" prefWidth="75.0" text="员工编号" />
+                            <TableColumn fx:id="UNameColumn" prefWidth="75.0" text="员工姓名" />
+                              <TableColumn fx:id="USexColumn" prefWidth="75.0" text="员工性别" />
+                              <TableColumn fx:id="UYearColumn" prefWidth="75.0" text="出生年份" />
+                              <TableColumn fx:id="UTelColumn" prefWidth="114.0" text="联系电话" />
+                              <TableColumn fx:id="Choose" prefWidth="75.0" text="选择" />
+                          </columns>
+                        </TableView>
+                        <Label layoutX="123.0" layoutY="2.0" prefHeight="15.0" prefWidth="189.0" text="双击通过审核" textFill="#f5e8e8">
+                           <font>
+                              <Font name="Symbol" size="18.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="27.0" fitWidth="40.0" layoutX="87.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/感叹号.png" />
+                           </image>
+                        </ImageView>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="基本工资修改">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="35.0" layoutY="28.0" text="工种" />
+                        <TextField layoutX="83.0" layoutY="24.0" prefHeight="23.0" prefWidth="146.0" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="查看考勤情况">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab text="查看员工工资">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab text="导入新员工  ">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

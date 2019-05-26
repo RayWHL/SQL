@@ -1,0 +1,19 @@
+/* 设置表格透明，如果要完全透明，下面应该是缺一不可------------------------------------- */
+.table-view {
+	-fx-background-color: transparent;
+}
+
+.table-column {
+	-fx-background-color: transparent;
+}
+
+.table-row-cell {
+    -fx-background-color:transparent;
+}
+.table-view .column-header-background {
+	-fx-background-color:transparent;
+} 
+
+.table-view .filler {
+	-fx-background-color:transparent;
+}

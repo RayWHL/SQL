@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?> 
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="287.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
+   <children>
+      <ImageView fitHeight="329.0" fitWidth="506.0" layoutX="-6.0">
+         <image>
+            <Image url="@../../img/login_bg.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="175.0" layoutY="34.0" text="工资管理系统" textFill="#362f31">
+         <font>
+            <Font name="STLiti" size="24.0" />
+         </font></Label>
+      <TextField fx:id="UserName" layoutX="209.0" layoutY="102.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </TextField>
+      <Label layoutX="130.0" layoutY="104.0" text="账号">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="130.0" layoutY="153.0" text="密码">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="PassWord" layoutX="209.0" layoutY="151.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </PasswordField>
+      <Button fx:id="CleanButton" layoutX="305.0" layoutY="231.0" mnemonicParsing="false" onMouseClicked="#on_CleanButton_clicked" text="清除" />
+      <Button fx:id="LoginButton" layoutX="166.0" layoutY="231.0" mnemonicParsing="false" onMouseClicked="#on_LoginButton_clicked" text="登录" />
+   </children>
+</AnchorPane>

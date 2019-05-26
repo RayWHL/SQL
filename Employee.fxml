@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="395.0" prefWidth="589.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EmployeeController">
+   <children>
+      <ImageView fitHeight="395.0" fitWidth="595.0">
+         <image>
+            <Image url="@../../img/login_bg.jpg" />
+         </image>
+      </ImageView>
+      <TabPane layoutX="-2.0" layoutY="-1.0" prefHeight="395.0" prefWidth="595.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="      打卡      ">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="WelcomeLabel" layoutX="58.0" layoutY="45.0" prefHeight="24.0" prefWidth="345.0" text="，欢迎使用工资管理系统 ！" textFill="#eedede">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="58.0" layoutY="144.0" onMouseClicked="#SignInClicked">
+                           <image>
+                              <Image url="@../../img/打卡.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="SignInLabel" layoutX="99.0" layoutY="147.0" prefHeight="98.0" prefWidth="453.0" text="点击打卡-&gt;" textFill="#e1d2d2">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="    基本信息    ">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="451.0">
+                     <children>
+                        <TextField fx:id="SecUserID" editable="false" layoutX="254.0" layoutY="39.0" />
+                        <Label layoutX="110.0" layoutY="41.0" text="员工编号" textFill="#eee5e5">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="110.0" layoutY="96.0" text="姓名" textFill="#f2e6e6">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="110.0" layoutY="206.0" text="联系方式" textFill="#e8d6d6">
+                           <font>
+                              <Font size="14.0" /> 
+                           </font>
+                        </Label>
+                        <Label layoutX="110.0" layoutY="262.0" text="出生年份" textFill="#e4d9d9">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="SecUserName" layoutX="254.0" layoutY="94.0" />
+                        <TextField fx:id="SecUserTel" layoutX="254.0" layoutY="204.0" />
+                        <TextField fx:id="SecUserYear" layoutX="254.0" layoutY="260.0" />
+                        <TextField fx:id="SecUserSex" layoutX="254.0" layoutY="148.0" />
+                        <Label layoutX="110.0" layoutY="150.0" text="性别" textFill="#ebe2e2">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="222.0" layoutY="316.0" mnemonicParsing="false" onMouseClicked="#SecModifyClicked" text="提交修改">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="     工资信息     ">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="38.0" layoutY="30.0" text="工种" textFill="#eee7e7" />
+                        <Label layoutX="286.0" layoutY="30.0" text="等级" textFill="#f2e8e8" />
+                        <Label layoutX="38.0" layoutY="63.0" text="基本工资" textFill="#f5eeee" />
+                        <Label layoutX="286.0" layoutY="63.0" text="加班津贴" textFill="#f5e8e8" />
+                        <TextField fx:id="ThrType" editable="false" layoutX="96.0" layoutY="26.0" />
+                        <TextField fx:id="ThrRank" editable="false" layoutX="361.0" layoutY="26.0" />
+                        <TextField fx:id="ThrSalary" editable="false" layoutX="96.0" layoutY="59.0" />
+                        <TextField fx:id="ThrSub" editable="false" layoutX="361.0" layoutY="59.0" />
+                        <Line endX="320.0" endY="-30.0" layoutX="282.0" layoutY="132.0" startX="-300.0" startY="-30.0" />
+                        <Label layoutX="38.0" layoutY="115.0" text="月工资查询">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="SalaryMonthTable" layoutX="9.0" layoutY="152.0" prefHeight="214.0" prefWidth="576.0">
+                          <columns>
+                            <TableColumn fx:id="YearColumn" prefWidth="106.0" text="年份" />
+                            <TableColumn fx:id="MonthColumn" prefWidth="98.0" text="月份" />
+                              <TableColumn fx:id="SalaryColumn" prefWidth="123.0" text="基本工资" />
+                              <TableColumn fx:id="SubColumn" prefWidth="121.0" text="津贴" />
+                              <TableColumn fx:id="SumSalaryColumn" prefWidth="122.0" text="总工资" />
+                          </columns>
+                        </TableView>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="   考勤信息   ">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <DatePicker fx:id="FourBeginTime" layoutX="84.0" layoutY="26.0" prefHeight="23.0" prefWidth="153.0" />
+                        <DatePicker fx:id="FourEndTime" layoutX="325.0" layoutY="26.0" />
+                        <Label layoutX="21.0" layoutY="30.0" text="开始时间" textFill="#f2e9e9" />
+                        <Label layoutX="265.0" layoutY="30.0" text="结束时间" textFill="#eee7e7" />
+                        <Button layoutX="534.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#SetFourAttendance" text="查询" />
+                        <Line endX="360.0" endY="-20.0" layoutX="235.0" layoutY="102.0" startX="-250.0" startY="-20.0" />
+                        <TableView fx:id="EmployeeAttendanceTable" layoutX="72.0" layoutY="83.0" prefHeight="285.0" prefWidth="472.0">
+                          <columns>
+                            <TableColumn fx:id="BEGINTColumn" prefWidth="184.0" text="签到时间" />
+                            <TableColumn fx:id="ENDTColumn" prefWidth="186.0" text="签退时间" />
+                              <TableColumn fx:id="TYPEColumn" prefWidth="107.0" text="类别" />
+                          </columns>
+                        </TableView>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
