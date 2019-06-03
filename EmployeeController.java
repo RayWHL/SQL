@@ -26,6 +26,9 @@ public class EmployeeController {
 	@FXML private Label SignInLabel ;
 	@FXML private Button SignInButton ;
 	
+	@FXML private TextField FirSumHours ;
+	@FXML private TextField FirOverHours ;
+	
 	//基本信息控件
 	@FXML private TextField SecUserID;
 	@FXML private TextField SecUserName;
@@ -160,11 +163,38 @@ public class EmployeeController {
 			//String currentMonth = currentTime.substring(5,7);
 			String currentDay = currentTime.substring(0,10);
 			String currentHour = currentTime.substring(11,13);
+			String currentMonth = currentTime.substring(0,7);
+			//System.out.println(currentHour);
 			
-			//检查该员工考勤表是否有未完成签到
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM S_ATTENDANCE WHERE SIGNOUT=0 AND UID=?");
+			//统计本月签到情况
+			int getAttendanceHour=0;
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM S_ATTENDANCE WHERE "
+					+ "SIGNOUT=1 AND UID=? AND "
+					+ "BEGINT LIKE '" + currentMonth +"%'");
 			ps.setString(1, UserID);
 			ResultSet  rs = ps.executeQuery();
+			while(rs.next())
+			{
+				getAttendanceHour+=Integer.parseInt(rs.getString("ENDT").substring(11,13))-Integer.parseInt(rs.getString("BEGINT").substring(11,13));
+			}
+			
+			int getSubHour=0;
+			ps = con.prepareStatement("SELECT * FROM S_SUBSIDY WHERE "
+					+ "SIGNOUT=1 AND UID=? AND "
+					+ "BEGINT LIKE '" + currentMonth +"%'");
+			ps.setString(1, UserID);
+			rs = ps.executeQuery();
+			while(rs.next())
+			{
+				getSubHour+=Integer.parseInt(rs.getString("ENDT").substring(11,13))-Integer.parseInt(rs.getString("BEGINT").substring(11,13));
+			}
+			FirSumHours.setText((getAttendanceHour+getSubHour)+"");
+			FirOverHours.setText(getSubHour+"");
+			
+			//检查该员工考勤表是否有未完成签到
+			ps = con.prepareStatement("SELECT * FROM S_ATTENDANCE WHERE SIGNOUT=0 AND UID=?");
+			ps.setString(1, UserID);
+			rs = ps.executeQuery();
 			while(rs.next())
 			{
 				String getDay=rs.getString("BEGINT").substring(0,10);
@@ -182,27 +212,14 @@ public class EmployeeController {
 				}*/
 			}
 			
-			/*
-			//检查该员工津贴表是否有未完成签到
-			ps = con.prepareStatement("SELECT * FROM S_SUBSIDY WHERE SIGNOUT=0 AND UID=?");
-			ps.setString(1, UserID);
-			rs = ps.executeQuery();
-			while(rs.next())
-			{
-				String getDay=rs.getString("BEGINT").substring(0,10);
-				if(currentDay.equals(getDay))
-				{
-					SignIn=false;
-					SignInLabel.setText("今天上次打卡时间为："+rs.getString("BEGINI")+"点击图标完成签退");
-					SignTime=rs.getString("BEGINT");
-				}
-			}*/
 			
+			System.out.println(SignIn);
 			//根据SignIn设置标签
 			if(SignIn)
 			{
+				System.out.println((Integer.parseInt(currentHour)));
 				//签到时，判断当前时间段
-				if(Integer.parseInt(currentHour)<17 || Integer.parseInt(currentHour)>=9)
+				if(Integer.parseInt(currentHour)<17 && Integer.parseInt(currentHour)>=9)
 				{
 					NormalWork=true;
 					SignInLabel.setText("今天没有未完成的签到,"+"点击图标签到");
@@ -210,6 +227,7 @@ public class EmployeeController {
 				else 
 				{
 					NormalWork=false;
+					System.out.println("1");
 					SignInLabel.setText("现在是下班时间，不允许签到！");
 				}
 			}
@@ -217,7 +235,7 @@ public class EmployeeController {
 			{
 				//签退时，时间段
 				//判断当前时间段
-				if(Integer.parseInt(currentHour)<18 || Integer.parseInt(currentHour)>=9)
+				if(Integer.parseInt(currentHour)<18 && Integer.parseInt(currentHour)>=9)
 					NormalWork=true;
 				else NormalWork=false;
 			}
@@ -249,6 +267,7 @@ public class EmployeeController {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String currentTime = sdf.format(dNow);
 			String currentDay = currentTime.substring(0,10);
+
 			//正常上班时间签到
 			if(NormalWork && SignIn) 
 			{
@@ -318,7 +337,7 @@ public class EmployeeController {
 		}  
 		
 		checkAttenTable();
-	}
+	}	
 	
 	
 	//基本信息修改按钮

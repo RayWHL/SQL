@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.*?>
+<?import javafx.collections.*?>
 
 <AnchorPane prefHeight="309.0" prefWidth="562.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AdminController">
    <children>
@@ -20,26 +23,19 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="AuditModifyTable" editable="true" layoutX="22.0" layoutY="28.0" prefHeight="243.0" prefWidth="503.0">
+                        <TableView fx:id="AuditModifyTable" editable="true" layoutX="30.0" layoutY="14.0" prefHeight="219.0" prefWidth="503.0">
                           <columns>
                             <TableColumn fx:id="UIDcolumn" prefWidth="75.0" text="员工编号" />
                             <TableColumn fx:id="UNameColumn" prefWidth="75.0" text="员工姓名" />
                               <TableColumn fx:id="USexColumn" prefWidth="75.0" text="员工性别" />
                               <TableColumn fx:id="UYearColumn" prefWidth="75.0" text="出生年份" />
                               <TableColumn fx:id="UTelColumn" prefWidth="114.0" text="联系电话" />
-                              <TableColumn fx:id="Choose" prefWidth="75.0" text="选择" />
+                              <TableColumn fx:id="checklist" prefWidth="84.0" text="选择" />
                           </columns>
                         </TableView>
-                        <Label layoutX="123.0" layoutY="2.0" prefHeight="15.0" prefWidth="189.0" text="双击通过审核" textFill="#f5e8e8">
-                           <font>
-                              <Font name="Symbol" size="18.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="27.0" fitWidth="40.0" layoutX="87.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../img/感叹号.png" />
-                           </image>
-                        </ImageView>
+                        <Button layoutX="133.0" layoutY="243.0" mnemonicParsing="false" onMouseClicked="#FirAgreeModify" text="审核通过" />
+                        <Button layoutX="335.0" layoutY="243.0" mnemonicParsing="false" onMouseClicked="#FirDisAgreeModify" text="审核拒绝" />
+                        <Line endX="300.0" endY="-10.0" layoutX="281.0" layoutY="243.0" startX="-300.0" startY="-10.0" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -47,24 +43,132 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="35.0" layoutY="28.0" text="工种" />
-                        <TextField layoutX="83.0" layoutY="24.0" prefHeight="23.0" prefWidth="146.0" />
+                        <TableView fx:id="SecModifyTable" editable="true" layoutX="8.0" layoutY="19.0" prefHeight="209.0" prefWidth="547.0">
+                          <columns>
+                            <TableColumn fx:id="SecTIDColumn" prefWidth="93.0" text="工种编号" />
+                            <TableColumn fx:id="SecTNameColumn" prefWidth="69.0" text="工种名称" />
+                              <TableColumn fx:id="SecTRankColumn" prefWidth="63.0" text="等级" />
+                              <TableColumn fx:id="SecDNameColumn" prefWidth="82.0" text="所属部门" />
+                              <TableColumn fx:id="SecTSalaryColumn" prefWidth="93.0" text="基本工资(元/时)" />
+                              <TableColumn fx:id="SecTSubColumn" prefWidth="78.0" text="津贴(元/时)" />
+                              <TableColumn fx:id="Secchecklist" prefWidth="49.0" text="选择" />
+                          </columns>
+                        </TableView>
+                        <Button layoutX="108.0" layoutY="240.0" mnemonicParsing="false" onMouseClicked="#SecModifySalary" text="修改基本工资" />
+                        <Button layoutX="325.0" layoutY="240.0" mnemonicParsing="false" onMouseClicked="#SecModifySub" text="    修改津贴    " />
+                        <Line endX="300.0" endY="-10.0" layoutX="271.0" layoutY="240.0" startX="-300.0" startY="-10.0" />
                      </children></AnchorPane>
             </content>
           </Tab>
             <Tab text="查看考勤情况">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="ThrDepartmentID" layoutX="53.0" layoutY="6.0" onMouseClicked="#ThrClickDepartment" />
+                        <TextField fx:id="ThrEmployeeID" layoutX="264.0" layoutY="6.0" onMouseClicked="#ThrClickEmployee" promptText="为空时查询整个部门" />
+                        <Label layoutX="17.0" layoutY="10.0" text="部门" textFill="#ebdfdf" />
+                        <Label layoutX="227.0" layoutY="10.0" text="员工" textFill="#f8f1f1" />
+                        <Button layoutX="473.0" layoutY="13.0" mnemonicParsing="false" onMouseClicked="#ThrQueryAttendance" text="查询" />
+                        <TableView fx:id="ThrAttendanceTable" layoutX="6.0" layoutY="72.0" prefHeight="200.0" prefWidth="553.0">
+                          <columns>
+                            <TableColumn fx:id="ThrDIDColumn" prefWidth="62.0" text="部门编号" />
+                            <TableColumn fx:id="ThrDNAMEColumn" prefWidth="68.0" text="部门名称" />
+                              <TableColumn fx:id="ThrUIDColumn" prefWidth="67.0" text="员工编号" />
+                              <TableColumn fx:id="ThrTIDColumn" prefWidth="63.0" text="工种编号" />
+                              <TableColumn fx:id="ThrBEGINTIMEColumn" prefWidth="141.0" text="签到时间" />
+                              <TableColumn fx:id="ThrENDTIMEColumn" prefWidth="147.0" text="签退时间" />
+                          </columns>
+                        </TableView>
+                        <Line endX="350.0" endY="20.0" layoutX="226.0" layoutY="53.0" startX="-250.0" startY="20.0" />
+                        <TextField fx:id="ThrYear" layoutX="53.0" layoutY="36.0" promptText="为空时统计所有年份" />
+                        <TextField fx:id="ThrMonth" layoutX="264.0" layoutY="36.0" promptText="为空时统计所有月份" />
+                        <Label layoutX="23.0" layoutY="40.0" text="年" textFill="#f8f6f6" />
+                        <Label layoutX="233.0" layoutY="40.0" text="月" textFill="#eee8e8" />
+                     </children></AnchorPane>
               </content>
             </Tab>
-            <Tab text="查看员工工资">
+            <Tab text="  查看工资  ">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="FourSalaryTable" layoutX="14.0" layoutY="63.0" prefHeight="203.0" prefWidth="534.0">
+                          <columns>
+                            <TableColumn fx:id="FourDIDColumn" prefWidth="65.0" text="部门编号" />
+                            <TableColumn fx:id="FourDNAMEColumn" prefWidth="85.0" text="部门名称" />
+                              <TableColumn fx:id="FourUIDColumn" prefWidth="74.0" text="员工编号" />
+                              <TableColumn fx:id="FourYEARColumn" prefWidth="47.0" text="年份" />
+                              <TableColumn fx:id="FourMONTHColumn" prefWidth="49.0" text="月份" />
+                              <TableColumn fx:id="FourFUNDColumn" prefWidth="81.0" text="基本工资" />
+                              <TableColumn fx:id="FourSUBColumn" prefWidth="61.0" text="津贴" />
+                              <TableColumn fx:id="FourSUMColumn" prefWidth="62.0" text="总工资" />
+                          </columns>
+                        </TableView>
+                        <TextField fx:id="FourDepartmentID" layoutX="73.0" layoutY="7.0" onMouseClicked="#FourClickDepartment" prefHeight="23.0" prefWidth="162.0" />
+                        <TextField fx:id="FourEmployeeID" layoutX="304.0" layoutY="7.0" onMouseClicked="#FourClickEmployee" promptText="为空时查询整个部门" />
+                        <Label layoutX="31.0" layoutY="11.0" text="部门" textFill="#ebe8e8" />
+                        <Label layoutX="257.0" layoutY="11.0" text="员工" textFill="#eeecec" />
+                        <Button layoutX="487.0" layoutY="19.0" mnemonicParsing="false" onMouseClicked="#FourQuerySalary" text="查询" />
+                        <TextField fx:id="FourYear" layoutX="73.0" layoutY="37.0" promptText="为空时显示所有年" />
+                        <TextField fx:id="FourMonth" layoutX="304.0" layoutY="37.0" promptText="为空时显示所有月" />
+                        <Label layoutX="37.0" layoutY="41.0" text="年" textFill="#f2ecec" />
+                        <Label layoutX="263.0" layoutY="41.0" text="月" textFill="#f2efef" />
+                     </children></AnchorPane>
               </content>
             </Tab>
             <Tab text="导入新员工  ">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="FiveUID" layoutX="77.0" layoutY="25.0" onMouseClicked="#FiveGetNewUID" promptText="点击获取编号" />
+                        <TextField fx:id="FiveUNAME" layoutX="363.0" layoutY="25.0" />
+                        <ChoiceBox fx:id="FiveSEX" layoutX="77.0" layoutY="79.0" prefHeight="23.0" prefWidth="159.0" value="男"> 
+                      		<items>
+        						<FXCollections fx:factory="observableArrayList">
+           				 		<String fx:value="男" />
+           				 		<String fx:value="女" />
+       					 		</FXCollections>
+    				  		</items>
+      					</ChoiceBox>
+                        <TextField fx:id="FiveYEAR" layoutX="363.0" layoutY="79.0" />
+                        <TextField fx:id="FiveDEPARTMENT" layoutX="77.0" layoutY="140.0" onMouseClicked="#FiveClickDepartment" />
+                        <TextField fx:id="FiveTYPE" layoutX="363.0" layoutY="140.0" onMouseClicked="#FiveClickType" />
+                        <TextField fx:id="FiveTEL" layoutX="77.0" layoutY="197.0" />
+                        <TextField fx:id="FivePASSWORD" layoutX="363.0" layoutY="197.0" />
+                        <Button layoutX="308.0" layoutY="243.0" mnemonicParsing="false" onMouseClicked="#FiveClickButton" text="确定" />
+                        <Button layoutX="181.0" layoutY="243.0" mnemonicParsing="false" onMouseClicked="#FiveCleanUp" text="清空" />
+                        <Label layoutX="18.0" layoutY="29.0" text="员工编号" textFill="#f5efef" />
+                        <Label layoutX="311.0" layoutY="29.0" text="姓名" textFill="#f2eaea" />
+                        <Label layoutX="30.0" layoutY="83.0" text="性别" textFill="#f8f3f3" />
+                        <Label layoutX="302.0" layoutY="83.0" text="出生年份" textFill="#eee8e8" />
+                        <Label layoutX="30.0" layoutY="144.0" text="部门" textFill="#eeebeb" />
+                        <Label layoutX="311.0" layoutY="144.0" text="工种" textFill="#f5ecec" />
+                        <Label layoutX="18.0" layoutY="201.0" text="联系方式" textFill="#fcf3f3" />
+                        <Label layoutX="299.0" layoutY="201.0" text="初始密码" textFill="#f8f5f5" />
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="工资与年终奖计算">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="SixYEAR" layoutX="48.0" layoutY="24.0" prefHeight="23.0" prefWidth="125.0" />
+                        <TextField fx:id="SixMONTH" layoutX="219.0" layoutY="24.0" prefHeight="23.0" prefWidth="125.0" />
+                        <Button layoutX="464.0" layoutY="24.0" mnemonicParsing="false" onMouseClicked="#SixCalculateBonus" text="计算年终奖" />
+                        <Button layoutX="366.0" layoutY="24.0" mnemonicParsing="false" onMouseClicked="#SixClickSalary" text="计算月工资" />
+                        <Label layoutX="22.0" layoutY="28.0" text="年" textFill="#e1dcdc" />
+                        <Label layoutX="195.0" layoutY="28.0" text="月" textFill="#fcf7f7" />
+                        <TableView fx:id="SixCalculateTable" layoutX="17.0" layoutY="60.0" prefHeight="200.0" prefWidth="525.0">
+                          <columns>
+                            <TableColumn fx:id="SixDIDColumn" prefWidth="75.0" text="部门编号" />
+                            <TableColumn fx:id="SixDNAMEColumn" prefWidth="75.0" text="部门名称" />
+                              <TableColumn fx:id="SixUIDColumn" prefWidth="75.0" text="员工编号" />
+                              <TableColumn fx:id="SixUNAMEColumn" prefWidth="75.0" text="员工名称" />
+                              <TableColumn fx:id="SixSalaryColumn" prefWidth="83.0" text="月工资/年工资" />
+                              <TableColumn fx:id="SixBONUSColumn" prefWidth="75.0" text="年终奖" />
+                          </columns>
+                        </TableView>
+                        <Line endX="350.0" endY="-5.0" layoutX="219.0" layoutY="266.0" startX="-300.0" startY="-5.0" />
+                     </children></AnchorPane>
               </content>
             </Tab>
         </tabs>
